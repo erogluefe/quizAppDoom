@@ -1,9 +1,6 @@
 package com.efes.quizApp.repository;
 
-import com.efes.quizApp.entity.Question;
-import org.hibernate.annotations.NamedNativeQueries;
-import org.hibernate.annotations.NamedNativeQuery;
-import org.hibernate.sql.*;
+import com.efes.quizApp.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,24 +8,25 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 
+
 @Repository
-public interface QuestionRepository extends JpaRepository<Question, Long> {
+
+public interface UserRepository extends JpaRepository<User, Long> {
 
 
-    Question getById(Long id);
+    User getById(Long id);
 
-    Question getByQuestionCode(String id);
+    User getByUsername(String id);
 
-    List<Question> getByQuestionCodeContains(String description);
+    List<User> getByUsernameContains(String description);
 
-    Question getByQuestionCodeAndIdNot(String questionCode, Long id);
+    User getByUsernameAndIdNot(String questionCode, Long id);
 
-    Page<Question> findAll(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 
-    List<Question> findAll(Sort sort);
+    List<User> findAll(Sort sort);
 
 //    @Query(value= " ",nativeQuery = true);
 //    @NamedNativeQueries({
@@ -38,14 +36,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 //    })
 
     @Query(
-            value = "SELECT * FROM question u WHERE u.id = 8",
+            value = "SELECT * FROM users u WHERE u.id = 8",
             nativeQuery = true)
-    Question findSpecificQuestion();
-
-
-
-
-
-
-
+    User findSpecificUser();
 }

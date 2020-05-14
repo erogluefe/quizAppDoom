@@ -8,4 +8,7 @@ public final class ApiPaths {
     public static  final  class QuestionCtrl{
         public static  final String CTRL = BASE_PATH + "/question";
     }
+    public static  final  class UserCtrl{
+        public static  final String CTRL = BASE_PATH + "/user";
+    }
 }
