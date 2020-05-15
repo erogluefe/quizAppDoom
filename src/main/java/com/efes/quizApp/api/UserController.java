@@ -50,6 +50,12 @@ public class UserController {
 
     }
 
+    @GetMapping("{id}/{pass}")
+    @ApiOperation(value = "login op",response = Boolean.class)
+    public ResponseEntity<Boolean> loginToSystem(@PathVariable("id") Long id,@PathVariable("pass") String pass  ){
+       return ResponseEntity.ok(userServiceImpl.loginTo(id,pass));
+    }
+
     @PostMapping
     @ApiOperation(value = "create Operation",response = UserDto.class)
     public ResponseEntity<UserDto> createQuestion(@Valid @RequestBody UserDto projectDto){

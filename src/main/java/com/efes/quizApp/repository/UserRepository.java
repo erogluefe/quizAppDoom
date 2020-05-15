@@ -28,12 +28,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAll(Sort sort);
 
-//    @Query(value= " ",nativeQuery = true);
-//    @NamedNativeQueries({
-//            @NamedNativeQuery(name = "selectAuthorNames", query = "SELECT a.firstname, a.lastname FROM Author a"),
-//            @NamedNativeQuery(name = "selectAuthorEntities", query = "SELECT a.id, a.version, a.firstname, a.lastname FROM Author a", resultClass = Author.class),
-//            @NamedNativeQuery(name = "selectAuthorValue", query = "SELECT a.id, a.firstname, a.lastname, count(b.id) as numBooks FROM Author a JOIN BookAuthor ba on a.id = ba.authorid JOIN Book b ON b.id = ba.bookid GROUP BY a.id", resultSetMapping = "AuthorValueMapping")
-//    })
+
 
     @Query(
             value = "SELECT * FROM users u WHERE u.id = 8",

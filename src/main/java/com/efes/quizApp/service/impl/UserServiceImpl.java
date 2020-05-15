@@ -42,7 +42,6 @@ public class UserServiceImpl implements UserService {
         userDto.setId(u.getId());
         return userDto;
 
-
     }
 
 
@@ -88,6 +87,19 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    public Boolean loginTo(Long id, String pass){
+
+        User q = userRepository.getOne(id);
+        System.out.println(q.getPassword());
+        if(pass.equals(q.getPassword())){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
 
     @Override
     public UserDto update(Long id, UserDto userDto) {
@@ -100,7 +112,6 @@ public class UserServiceImpl implements UserService {
 
         if (questionCheck != null)
             throw new IllegalArgumentException("aynı question kod var zaten");
-
 
 
         userDb.setUsername(userDto.getUsername());
@@ -120,6 +131,10 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(userDb, UserDto.class);
 
 
+    }
+    public List<UserDto> getAll() {
+        List<User> data = userRepository.findAll();
+        return Arrays.asList(modelMapper.map(data, UserDto[].class));
     }
 
     @Override
