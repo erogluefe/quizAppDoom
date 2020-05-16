@@ -50,10 +50,17 @@ public class UserController {
 
     }
 
-    @GetMapping("{id}/{pass}")
-    @ApiOperation(value = "login op",response = Boolean.class)
-    public ResponseEntity<Boolean> loginToSystem(@PathVariable("id") Long id,@PathVariable("pass") String pass  ){
-       return ResponseEntity.ok(userServiceImpl.loginTo(id,pass));
+//    @GetMapping("{id}/{pass}")
+//    @ApiOperation(value = "login op",response = Boolean.class)
+//    public ResponseEntity<Boolean> loginToSystem(@PathVariable("id") Long id,@PathVariable("pass") String pass  ){
+//       return ResponseEntity.ok(userServiceImpl.loginToWithId(id,pass));
+//    }
+
+    @GetMapping("{email}/{pass}")
+    @ApiOperation(value = "login op",response = UserDto.class)
+    public ResponseEntity<UserDto> loginToSystem(@PathVariable("email") String email,@PathVariable("pass") String pass  ){
+        UserDto dto =userServiceImpl.loginToWithMail(email,pass);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping

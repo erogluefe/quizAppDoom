@@ -45,12 +45,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public UserDto getById(Long id) {
-        User q = userRepository.getOne(id);
-        return modelMapper.map(q, UserDto.class);
-
-    }
 
     @Override
     public UserDto getByUsername(String username) {
@@ -87,7 +81,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public Boolean loginTo(Long id, String pass){
+    public Boolean loginToWithId(Long id, String pass){
 
         User q = userRepository.getOne(id);
         System.out.println(q.getPassword());
@@ -96,6 +90,26 @@ public class UserServiceImpl implements UserService {
         }
         else {
             return false;
+        }
+
+    }
+
+    @Override
+    public UserDto getById(Long id) {
+        User q = userRepository.getOne(id);
+        return modelMapper.map(q, UserDto.class);
+
+    }
+
+
+    public UserDto loginToWithMail(String mail,String pass){
+        User u= userRepository.getByEmail(mail);
+
+        if (pass.equals(u.getPassword())){
+            return modelMapper.map(u,UserDto.class);
+        }
+        else{
+            return null; // buraya bussiness logic gelebilir.
         }
 
     }
