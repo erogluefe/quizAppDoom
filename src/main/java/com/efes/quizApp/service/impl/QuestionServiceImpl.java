@@ -3,6 +3,7 @@ package com.efes.quizApp.service.impl;
 import com.efes.quizApp.dto.QuestionDto;
 import com.efes.quizApp.entity.Question;
 import com.efes.quizApp.repository.QuestionRepository;
+import com.efes.quizApp.repository.QuizRepository;
 import com.efes.quizApp.service.QuestionService;
 import com.efes.quizApp.util.TPage;
 import org.modelmapper.ModelMapper;
@@ -19,13 +20,16 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
 
+    private final QuizRepository quizRepository;
+
     private final ModelMapper modelMapper;
 
 
-    public QuestionServiceImpl(QuestionRepository questionRepository, ModelMapper modelMapper) {
+    public QuestionServiceImpl(QuestionRepository questionRepository, ModelMapper modelMapper,QuizRepository quizRepository) {
 
         this.questionRepository = questionRepository;
         this.modelMapper = modelMapper;
+        this.quizRepository=quizRepository;
     }
 
 
@@ -38,6 +42,9 @@ public class QuestionServiceImpl implements QuestionService {
             throw new IllegalArgumentException("aynı question kod var zaten");
 
         Question q = modelMapper.map(questionDto, Question.class);
+
+        q.setQuiz(quizRepository.getOne(questionDto.getId()));
+
         q = questionRepository.save(q);
         questionDto.setId(q.getId());
         return questionDto;
@@ -62,14 +69,16 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public TPage<QuestionDto> getAllPageable(Pageable pageable) {
-        //sonradan ekledim 3 ss
         Page<Question> data = questionRepository.findAll(pageable);
         TPage<QuestionDto> response = new TPage<QuestionDto>();
         response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), QuestionDto[].class)));
-
-        //return null;
         return response;
-        //return projectRepository.findAll(pageable);
+    }
+
+    public List<QuestionDto> getAll() {
+
+        List<Question> data = questionRepository.findAll();
+        return Arrays.asList(modelMapper.map(data, QuestionDto[].class));
     }
 
 

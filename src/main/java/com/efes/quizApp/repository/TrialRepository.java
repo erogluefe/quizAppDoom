@@ -8,6 +8,9 @@ import java.util.List;
 
 @Repository
 public interface TrialRepository extends JpaRepository<Trial, Long> {
+
+
+
     Trial getByDevIdAndQuizIdAndTrialNo(Long devId, Long quizId, int trial_no);
 
     Boolean deleteByDevIdAndQuizIdAndTrialNo(Long devId, Long quizId, int trial_no);

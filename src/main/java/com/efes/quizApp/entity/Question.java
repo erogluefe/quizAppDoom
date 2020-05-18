@@ -43,6 +43,9 @@ public class Question extends BaseEntity {
     @Column(name = "is_public")
     private int is_public;
 
+    @JoinColumn(name = "quizConnectId")
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    private Quiz quiz;
 
 
 
