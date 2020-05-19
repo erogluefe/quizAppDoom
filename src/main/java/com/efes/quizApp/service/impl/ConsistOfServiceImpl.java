@@ -58,6 +58,11 @@ public class ConsistOfServiceImpl implements ConsistOfService {
 
 
     }
+    public  void deleteWithSqlQuer(Long id){
+       // return consistOfRepository.deleteAllByQuestionId(id);
+        consistOfRepository.deleteSpecificQuestions(id);
+
+    }
 
 
     @Override
@@ -65,17 +70,6 @@ public class ConsistOfServiceImpl implements ConsistOfService {
         ConsistOf constdb = consistOfRepository.getOne(id);
         if (constdb == null)
             throw new IllegalArgumentException("bu kayıt db de yok ID: " + id);
-
-        //  Project projectCheck = projectRepository.getByProjectCode(project.getProjectCode());
-
-//        ConsistOf questionCheck= consistOfRepository.getByQuestionCodeAndIdNot(questionDto.getQuestionCode(),id);
-//        // alttaki satır bir şeyler değişecek ve üsttekiyle birleşecek.
-//        if (questionCheck!=null)
-//            throw new IllegalArgumentException("aynı question kod var zaten");
-
-
-        //  if (projectCheck != null && projectCheck.getId() !=projectDb.getId())
-        //   throw new IllegalArgumentException("aynı project kod var zaten");
 
 
         constdb.setQuestionId(consDto.getQuestionId());

@@ -35,7 +35,7 @@ public class Quiz {
     private String name;
 
     @Column(name = "ResolvedId") // buda nullabalce olacak ama mantığını tam anlamak lazım.
-    private int resolvedId; // fk to admin Id
+    private Long resolvedId; // fk to admin Id
 
     @Column(name = "curatedID")
     private int curatedId; // fk to adminId

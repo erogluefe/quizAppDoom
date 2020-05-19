@@ -26,7 +26,7 @@ public class QuizDto {
 
     private String name;
 
-    private int resolvedId; // fk to admin Id
+    private Long resolvedId; // fk to admin Id
 
     private int curatedId; // fk to adminId
 

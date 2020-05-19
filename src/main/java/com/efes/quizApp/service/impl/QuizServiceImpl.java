@@ -26,15 +26,14 @@ public class QuizServiceImpl implements QuizService {
     private final QuestionRepository questionRepository;
 
 
-
     private final ModelMapper modelMapper;
 
 
-    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper,QuestionRepository questionRepository) {
+    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper, QuestionRepository questionRepository) {
 
         this.quizRepository = quizRepository;
         this.modelMapper = modelMapper;
-        this.questionRepository=questionRepository;
+        this.questionRepository = questionRepository;
     }
 
 
@@ -94,37 +93,28 @@ public class QuizServiceImpl implements QuizService {
     }
 
 
-
     @Override
     public QuizDto update(Long id, QuizDto quizDto) {
 
         Quiz quizDb = quizRepository.getOne(id);
         if (quizDb == null)
             throw new IllegalArgumentException("bu kayıt db de yok ID: " + id);
-        Quiz quizCheck= quizRepository.getByNameAndIdNot(quizDto.getName(),id);
-        if (quizCheck!=null)
+        Quiz quizCheck = quizRepository.getByNameAndIdNot(quizDto.getName(), id);
+        if (quizCheck != null)
             throw new IllegalArgumentException("aynı quiz name var zaten");
 
 
-/*
-        private int resolvedId; // fk to admin Id
-
-        private int curatedId; // fk to adminId
-
-        private int privateOfId; // fk to companyId
-
-
- */
         quizDb.setDifficulty(quizDto.getDifficulty());
+
+        quizDb.setType(quizDto.getType());
         quizDb.setTimeLimit(quizDto.getTimeLimit());
-
-        //buraya neler güncellencekse eklenecek.
-
-
+        quizDb.setName(quizDto.getName());
+        quizDb.setResolvedId(quizDto.getResolvedId());
+        quizDb.setCuratedId(quizDto.getCuratedId());
+        quizDb.setPrivateOfId(quizDto.getPrivateOfId());
 
         quizRepository.save(quizDb);
         return modelMapper.map(quizDb, QuizDto.class);
-
 
 
     }
@@ -175,9 +165,6 @@ public class QuizServiceImpl implements QuizService {
 //
 //
 //    }
-
-
-
 
 
 }

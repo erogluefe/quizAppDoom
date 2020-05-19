@@ -44,6 +44,38 @@ public class ConsistOfController {
 
     }
 
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "delete Operation",response = Boolean.class)
+    public ResponseEntity <Boolean> delete(@PathVariable(value = "id") Long id){
+
+        return ResponseEntity.ok(consistOfServiceImpl.delete(id));
+
+    }
+
+    @DeleteMapping("/spec/{id}")
+    @ApiOperation(value = "delete Operation with all selected question",response = Boolean.class)
+    public void deleteWithSpec(@PathVariable(value = "id") Long id){
+        consistOfServiceImpl.deleteWithSqlQuer(id);
+        //return ResponseEntity.ok();
+
+    }
+
+    @GetMapping("/getSpec/{id}")
+    @ApiOperation(value = "Get Operation with spec consist of",response = ConsDto.class)
+    public ResponseEntity<ConsDto> getById(@PathVariable(value = "id") Long id){
+        ConsDto dto=  consistOfServiceImpl.getById(id);
+        return ResponseEntity.ok(dto);
+
+    }
+
+    @PutMapping("/{id}")
+    @ApiOperation(value = "Update Operation",response = ConsDto.class)
+    public ResponseEntity<ConsDto> update(@PathVariable(value = "id")Long id,@Valid @RequestBody ConsDto consDto){
+
+        return ResponseEntity.ok( consistOfServiceImpl.update(id,consDto));
+
+    }
+
 
 
 
