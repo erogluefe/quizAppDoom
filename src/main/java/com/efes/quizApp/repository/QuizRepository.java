@@ -34,9 +34,12 @@ public interface QuizRepository extends JpaRepository<Quiz,Long> {
 
 
     @Query(
-            value = "SELECT * FROM quiz u WHERE u.id = 8",
+            value = "SELECT * FROM quiz u WHERE u.id = 23",
             nativeQuery = true)
     Quiz findSpecificquiz();
+
+    // buraya istediğimiz rakamı eklemeye bakalım bi ara.
+
 }
 
 

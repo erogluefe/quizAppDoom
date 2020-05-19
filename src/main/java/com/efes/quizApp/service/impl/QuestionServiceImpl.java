@@ -43,7 +43,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         Question q = modelMapper.map(questionDto, Question.class);
 
-        q.setQuiz(quizRepository.getOne(questionDto.getId()));
+      //  q.setQuiz(quizRepository.getOne(questionDto.getId()));
 
         q = questionRepository.save(q);
         questionDto.setId(q.getId());
@@ -96,7 +96,6 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
 
-
     @Override
     public QuestionDto update(Long id, QuestionDto questionDto) {
 
@@ -138,5 +137,7 @@ public class QuestionServiceImpl implements QuestionService {
         return modelMapper.map(q, QuestionDto.class);
 
     }
+
+
 }
 

@@ -15,22 +15,6 @@ import java.util.List;
 @Table(name = "quiz")
 public class Quiz {
 
-    /*
-
-    QuizID int,
-difficulty numeric(1,2) not null,
-type varchar(20),
-time_limit time,
-name varchar(20) not null,
-ResolvesID int not null,
-CuratedID int,
-PrivateOfID int,
-primary key(QuizID),
-foreign key(ResolvesID) references Admin(ID),
-foreign key (CuratedID) references Admin(ID),
-foreign key (PrivateOfID) references Company(ID));
-     */
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -60,9 +44,9 @@ foreign key (PrivateOfID) references Company(ID));
     private int privateOfId; // fk to companyId
 
 
-
     @JoinColumn(name = "quizConnectId")
     @OneToMany(fetch = FetchType.LAZY)
+  //  @Column(name = "questions")
     private List<Question> questions;
 
 

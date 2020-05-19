@@ -16,6 +16,8 @@ public interface QuizService {
 
     QuizDto getByName(String name);
 
+  //  Boolean addQuestion(Long Quesid,Long QuizId);
+
     List<QuizDto> getByNameContains(String name);
 
     TPage<QuizDto> getAllPageable(Pageable pageable);

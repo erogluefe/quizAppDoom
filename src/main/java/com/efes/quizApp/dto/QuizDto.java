@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -29,6 +31,8 @@ public class QuizDto {
     private int curatedId; // fk to adminId
 
     private int privateOfId; // fk to companyId
+
+    private List<QuestionDto> questionDtos;
 
 
 }

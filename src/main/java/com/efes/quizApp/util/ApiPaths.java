@@ -17,4 +17,7 @@ public final class ApiPaths {
     public static  final  class QuizCtrl{
         public static  final String CTRL = BASE_PATH + "/quiz";
     }
+    public static  final  class ConsCtrl{
+        public static  final String CTRL = BASE_PATH + "/cons";
+    }
 }

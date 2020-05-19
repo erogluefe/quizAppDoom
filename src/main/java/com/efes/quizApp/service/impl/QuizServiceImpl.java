@@ -1,7 +1,10 @@
 package com.efes.quizApp.service.impl;
 
+import com.efes.quizApp.dto.QuestionDto;
 import com.efes.quizApp.dto.QuizDto;
+import com.efes.quizApp.entity.Question;
 import com.efes.quizApp.entity.Quiz;
+import com.efes.quizApp.repository.QuestionRepository;
 import com.efes.quizApp.repository.QuizRepository;
 import com.efes.quizApp.service.QuizService;
 import com.efes.quizApp.util.TPage;
@@ -9,7 +12,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,15 +23,18 @@ public class QuizServiceImpl implements QuizService {
 
     private final QuizRepository quizRepository;
 
+    private final QuestionRepository questionRepository;
+
 
 
     private final ModelMapper modelMapper;
 
 
-    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper) {
+    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper,QuestionRepository questionRepository) {
 
         this.quizRepository = quizRepository;
         this.modelMapper = modelMapper;
+        this.questionRepository=questionRepository;
     }
 
 
@@ -127,6 +135,48 @@ public class QuizServiceImpl implements QuizService {
         return modelMapper.map(q, QuizDto.class);
 
     }
+
+//    @Override
+//    public Boolean addQuestion(Long Quesid, Long QuizId) {
+//            quizRepository.getOne(QuizId).getQuestions().add(questionRepository.getOne(Quesid));
+//            return true;
+//
+//    }
+//
+//    @Transactional
+//    public Boolean addQuestions(Long id, Long qid){
+//
+//        Question question =questionRepository.getById(qid);
+//        Question q = new Question();
+//        q.setId(question.getId());
+//
+//        q.setQuestionCode(question.getQuestionCode());
+//        q.setImageName(q.getImageName());
+//        q.setDescription(question.getDescription());
+//        q.setDifficulty(question.getDifficulty());
+//        q.setCorrect_option(question.getCorrect_option());
+//        q.setIs_public(question.getIs_public());
+//        questionRepository.save(q);
+//
+//       // q.setQuiz(quizRepository.getOne(id));
+//
+//        //quizRepository.getOne(id).setQuestions(questions); // bu satıra check atmalı
+//        System.out.println(Arrays.asList(quizRepository.getOne(id).getQuestions()));
+//        System.out.println("efe ");
+//
+//
+//        Quiz quiz = quizRepository.getOne(id);
+//
+//
+//
+//
+//        return true;
+//
+//
+//
+//    }
+
+
 
 
 

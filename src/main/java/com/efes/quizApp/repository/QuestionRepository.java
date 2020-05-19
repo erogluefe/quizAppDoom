@@ -24,6 +24,8 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> getByQuestionCodeContains(String description);
 
+
+
     Question getByQuestionCodeAndIdNot(String questionCode, Long id);
 
     Page<Question> findAll(Pageable pageable);

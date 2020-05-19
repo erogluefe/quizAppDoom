@@ -49,10 +49,17 @@ public class QuizController {
         return ResponseEntity.ok(dto);
 
     }
+//
+//    @GetMapping("/{id}/{qid}")
+//    @ApiOperation(value = "Get Operation",response = QuizDto.class)
+//    public ResponseEntity<Boolean> addQuizQuestion(@PathVariable(value = "id") Long id,@PathVariable(value = "qid") Long qid){
+//        return ResponseEntity.ok(quizServiceImpl.addQuestion(id,qid));
+//
+//    }
 
     @PostMapping
     @ApiOperation(value = "create Operation",response = QuizDto.class)
-    public ResponseEntity<QuizDto> createQuestion(@Valid @RequestBody QuizDto projectDto){
+    public ResponseEntity<QuizDto> createQuiz(@Valid @RequestBody QuizDto projectDto){
         return ResponseEntity.ok(quizServiceImpl.save(projectDto));
 
     }
@@ -60,9 +67,9 @@ public class QuizController {
     // @RequestMapping(path= "/update",method = RequestMethod.PUT)
     @PutMapping("/{id}")
 //    @ApiOperation(value = "update Operation",response = ProjectDto.class)
-    public ResponseEntity<QuizDto> updateQuestion(@PathVariable(value = "id",required = true) Long id, @Valid @RequestBody QuizDto projectDto){
+    public ResponseEntity<QuizDto> updateQuiz(@PathVariable(value = "id",required = true) Long id, @Valid @RequestBody QuizDto quizDto){
 
-        return ResponseEntity.ok( quizServiceImpl.update(id,projectDto));
+        return ResponseEntity.ok( quizServiceImpl.update(id,quizDto));
 
 
     }
