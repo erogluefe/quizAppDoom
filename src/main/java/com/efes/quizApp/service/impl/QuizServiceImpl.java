@@ -4,6 +4,7 @@ import com.efes.quizApp.dto.QuestionDto;
 import com.efes.quizApp.dto.QuizDto;
 import com.efes.quizApp.entity.Question;
 import com.efes.quizApp.entity.Quiz;
+import com.efes.quizApp.entity.costumGroupByClass;
 import com.efes.quizApp.repository.QuestionRepository;
 import com.efes.quizApp.repository.QuizRepository;
 import com.efes.quizApp.service.QuizService;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -126,7 +128,42 @@ public class QuizServiceImpl implements QuizService {
 
     }
 
+    @Override
+    public List<QuizDto> getHardest() {
+        List<Quiz> quizzes = quizRepository.findTheMostDifficultQuiz();
+        return Arrays.asList(modelMapper.map(quizzes, QuizDto[].class));
+    }
+
+    @Override
+    public List<QuizDto> getEasy() {
+        List<Quiz> quizzes = quizRepository.findTheMostEasyQuiz();
+        return Arrays.asList(modelMapper.map(quizzes, QuizDto[].class));
+
+    }
+
+    @Override
+    public int getNumberOfQuiz() {
+        return quizRepository.findQuizNumber();
+    }
+
 //    @Override
+//    public List<Tuple> getNumberOfEachDifficulty() {
+//       return quizRepository.findNumberOfEachDifficulty();
+//
+//    }
+
+    @Override
+    public List<QuizDto> getSpecTime(int first, int second) {
+      return  Arrays.asList(modelMapper.map( quizRepository.findSpecificTime(first,second),QuizDto[].class));
+    }
+
+    @Override
+    public List<QuizDto> getSpecQuizzes(String name) {
+        return Arrays.asList(modelMapper.map(quizRepository.findSpecificNameQuizzes(name),QuizDto[].class));
+    }
+
+
+    //    @Override
 //    public Boolean addQuestion(Long Quesid, Long QuizId) {
 //            quizRepository.getOne(QuizId).getQuestions().add(questionRepository.getOne(Quesid));
 //            return true;

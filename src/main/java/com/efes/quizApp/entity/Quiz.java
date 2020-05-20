@@ -15,6 +15,15 @@ import java.util.List;
 @Table(name = "quiz")
 public class Quiz {
 
+    /*
+    constraints:
+    not null
+    unique
+    primary key
+    foreign key
+
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -48,6 +57,10 @@ public class Quiz {
     @OneToMany(fetch = FetchType.LAZY)
   //  @Column(name = "questions")
     private List<Question> questions;
+
+
+    @ManyToMany
+    private List<Tag> tags;
 
 
 
