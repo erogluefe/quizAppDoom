@@ -8,12 +8,11 @@ import com.efes.quizApp.repository.RequestsInterviewRepository;
 import com.efes.quizApp.service.RequestsInterviewService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static com.efes.quizApp.entity.Status.PENDING;
 
 @Service
 public class RequestsInterviewServiceImpl implements RequestsInterviewService {
@@ -21,7 +20,7 @@ public class RequestsInterviewServiceImpl implements RequestsInterviewService {
     private ModelMapper modelMapper;
     private RequestsInterviewRepository reqRepo;
 
-    private RequestsInterviewServiceImpl(ModelMapper modelMapper, RequestsInterviewRepository reqRepo){
+    public RequestsInterviewServiceImpl(ModelMapper modelMapper, RequestsInterviewRepository reqRepo){
         this.modelMapper = modelMapper;
         this.reqRepo = reqRepo;
     }
@@ -33,26 +32,30 @@ public class RequestsInterviewServiceImpl implements RequestsInterviewService {
 //        if(requestsInterview != null)
 //            throw new IllegalArgumentException("Such Interview Request exists");
 
-        RequestsInterview requestsInterview = new RequestsInterview(req_int_info.getDevId(), req_int_info.getCompanyId()
-                , PENDING, req_int_info.getDuration(), new Date());
+        RequestsInterview requestsInterview = new RequestsInterview(req_int_info.getDevId(), req_int_info.getCompanyId(),
+                Status.PENDING, req_int_info.getDuration(), new Date());
 
         reqRepo.save(requestsInterview);
-        return  modelMapper.map(requestsInterview, RequestsInterviewDto.class);
+        return modelMapper.map(requestsInterview, RequestsInterviewDto.class);
+//        return  new RequestsInterviewDto(requestsInterview.getDevId(), requestsInterview.getCompanyId(),
+//                "PENDING", requestsInterview.getDuration(), requestsInterview.getStartDate());
 
     }
 
     @Override
-    public Boolean delete(RequestsInterviewDto req_int_info) {
-        return reqRepo.deleteByDevIdAndCompanyId(req_int_info.getDevId(), req_int_info.getCompanyId());
+    @Transactional
+    public void delete(RequestsInterviewDto req_int_info) {
+        reqRepo.delete(modelMapper.map(req_int_info, RequestsInterview.class));
     }
 
     @Override
+    @Transactional
     public RequestsInterviewDto updateStatus(RequestsInterviewDto req_int_info) {
         RequestsInterview reqDb = reqRepo.getByDevIdAndCompanyId(req_int_info.getDevId(),req_int_info.getCompanyId());
         if(reqDb == null)
             throw new IllegalArgumentException("Such interview does not exist");
         reqDb.setStatus(req_int_info.getStatus());
-        reqRepo.deleteByDevIdAndCompanyId(req_int_info.getDevId(),req_int_info.getCompanyId());
+
         reqRepo.save(reqDb);
         return modelMapper.map(reqDb, RequestsInterviewDto.class);
     }

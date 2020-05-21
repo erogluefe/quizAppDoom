@@ -8,7 +8,7 @@ import java.util.List;
 public interface RequestsInterviewService {
     RequestsInterviewDto save(RequestsInterviewDto req_int_info);
 
-    Boolean delete(RequestsInterviewDto req_int_info);
+    void delete(RequestsInterviewDto req_int_info);
 
     RequestsInterviewDto updateStatus(RequestsInterviewDto req_int_info);
 
