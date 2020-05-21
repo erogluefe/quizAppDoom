@@ -84,7 +84,7 @@ public class TrialServiceImpl implements TrialService {
         Trial newTrial = new Trial(trialInfo.getDevId(), trialInfo.getQuizId(), newTrNo, newSuccessRate, newChoosenOptions, false);
 
         //if attempts are all made
-        if(newTrNo == 3)
+        if(newTrNo == 3 || newSuccessRate == 1)
             newTrial.setPassed(true);
         trialRepo.save(newTrial);
 

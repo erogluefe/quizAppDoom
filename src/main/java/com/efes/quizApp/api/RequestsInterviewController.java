@@ -56,8 +56,7 @@ public class RequestsInterviewController {
 
     @DeleteMapping
     @ApiOperation(value = "delete an interview request", response = Boolean.class)
-    public ResponseEntity<Boolean> deleteInterviewRequest(@Valid @RequestBody RequestsInterviewDto req_info){
-        Boolean isDeleted = requestsInterviewServiceImpl.delete(req_info);
-        return ResponseEntity.ok(isDeleted);
+    public void deleteInterviewRequest(@Valid @RequestBody RequestsInterviewDto req_info){
+        requestsInterviewServiceImpl.delete(req_info);
     }
 }

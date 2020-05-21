@@ -13,5 +13,5 @@ public interface RequestsInterviewRepository extends JpaRepository<RequestsInter
 
     RequestsInterview getByDevIdAndCompanyId( Long devId, Long companyId);
 
-    Boolean deleteByDevIdAndCompanyId(Long devId, Long companyId);
+    Boolean deleteAllByDevIdAndCompanyId(Long devId, Long companyId);
 }

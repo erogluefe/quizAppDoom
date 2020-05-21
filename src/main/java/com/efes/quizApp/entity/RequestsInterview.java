@@ -25,7 +25,6 @@ public class RequestsInterview extends BaseEntity{
     private Long companyId;
 
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(name = "duration")
