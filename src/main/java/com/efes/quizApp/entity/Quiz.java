@@ -28,7 +28,7 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "quizId",unique = true)
+    @Column(name = "quizId")
     private int quizId;
 
     @Column(name = "difficulty",nullable = false)
