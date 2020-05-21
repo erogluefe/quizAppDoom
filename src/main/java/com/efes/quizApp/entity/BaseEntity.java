@@ -23,7 +23,7 @@ public  abstract class BaseEntity implements Serializable {
     private Date updatedAt;
     @Column(name = "updated_by",length = 100)
     private String updatedBy;
-    @Column(name = "status")
+    @Column(name = "status",nullable = true)
     private boolean status;
 
 }

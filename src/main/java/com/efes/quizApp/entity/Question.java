@@ -2,6 +2,8 @@ package com.efes.quizApp.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 
 import javax.persistence.*;
@@ -14,6 +16,19 @@ import javax.validation.constraints.NotNull;
 @ToString
 @EqualsAndHashCode
 @Table(name = "question")
+/*
+@TypeDefs({
+        @TypeDef(
+                name = "string-array",
+                typeClass = StringArrayType.class
+        ),
+        @TypeDef(
+                name = "int-array",
+                typeClass = IntArrayType.class
+        )
+})
+
+ */
 public class Question extends BaseEntity {
    /*
     {
@@ -55,7 +70,6 @@ public class Question extends BaseEntity {
 
     @Column(name = "answers")
     private String answers;
-
 
 
     @JoinColumn(name = "quizConnectId")

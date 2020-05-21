@@ -48,9 +48,25 @@ public class QuizServiceImpl implements QuizService {
             throw new IllegalArgumentException("aynı quiz name var zaten");
 
         Quiz q = modelMapper.map(quizDto, Quiz.class);
+
+        List<Question> questionList = new ArrayList<>();
+        for(QuestionDto qs :quizDto.getQuestionDtos()){
+
+
+            Question as = modelMapper.map(qs, Question.class);
+            questionRepository.save(as);
+            as.setId(qs.getId());
+            questionList.add(as);
+
+        }
+
+        q.setQuestions(questionList);
         q = quizRepository.save(q);
         quizDto.setId(q.getId());
         return quizDto;
+
+
+
     }
 
     @Override
@@ -167,6 +183,12 @@ public class QuizServiceImpl implements QuizService {
         List<Quiz> quizzes = quizRepository.getByCuratedId(creatorName);
         return Arrays.asList(modelMapper.map(quizzes,QuizDto[].class));
     }
+
+    @Override
+    public List<QuizDto> getAllQuiz() {
+        return Arrays.asList(modelMapper.map(quizRepository.findAll(),QuizDto[].class));
+    }
+
 
     //    @Override
 //    public Boolean addQuestion(Long Quesid, Long QuizId) {
