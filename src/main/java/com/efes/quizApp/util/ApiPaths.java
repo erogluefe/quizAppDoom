@@ -20,4 +20,7 @@ public final class ApiPaths {
     public static  final  class ConsCtrl{
         public static  final String CTRL = BASE_PATH + "/cons";
     }
+    public static  final  class ImageCtrl{
+        public static  final String CTRL = BASE_PATH + "/image";
+    }
 }
