@@ -4,6 +4,7 @@ package com.efes.quizApp.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Table(name = "tag")
-public class Tag extends BaseEntity {
+public class Tag implements Serializable {
 
 
     @Id

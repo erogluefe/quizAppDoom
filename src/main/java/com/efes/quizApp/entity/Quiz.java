@@ -53,10 +53,21 @@ public class Quiz {
     private int privateOfId; // fk to companyId
 
 
+  //  @JoinColumn(name = "quizConnectId")
+  //  @OneToMany(fetch = FetchType.LAZY)
+  //  @Column(name = "questions")
+
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Question> questions;
+//
+
+ //   private Set<Page> pages;
+
+//
     @JoinColumn(name = "quizConnectId")
     @OneToMany(fetch = FetchType.LAZY)
-  //  @Column(name = "questions")
-    private List<Question> questions;
+    private List<Tag> tags;
 
 
 /*

@@ -2,13 +2,11 @@ package com.efes.quizApp.service.impl;
 
 import com.efes.quizApp.dto.QuestionDto;
 import com.efes.quizApp.dto.QuizDto;
-import com.efes.quizApp.entity.ConsistOf;
-import com.efes.quizApp.entity.Question;
-import com.efes.quizApp.entity.Quiz;
-import com.efes.quizApp.entity.costumGroupByClass;
+import com.efes.quizApp.entity.*;
 import com.efes.quizApp.repository.ConsistOfRepository;
 import com.efes.quizApp.repository.QuestionRepository;
 import com.efes.quizApp.repository.QuizRepository;
+import com.efes.quizApp.repository.QuizTagsRepository;
 import com.efes.quizApp.service.QuizService;
 import com.efes.quizApp.util.TPage;
 import org.modelmapper.ModelMapper;
@@ -31,16 +29,19 @@ public class QuizServiceImpl implements QuizService {
 
     private final ConsistOfRepository consistOfRepository;
 
+    private final QuizTagsRepository quizTagsRepository;
+
 
     private final ModelMapper modelMapper;
 
 
-    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper, QuestionRepository questionRepository,ConsistOfRepository consistOfRepository) {
+    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper, QuestionRepository questionRepository,ConsistOfRepository consistOfRepository,QuizTagsRepository quizTagsRepository) {
 
         this.quizRepository = quizRepository;
         this.modelMapper = modelMapper;
         this.questionRepository = questionRepository;
         this.consistOfRepository=consistOfRepository;
+        this.quizTagsRepository=quizTagsRepository;
     }
 
 
@@ -58,6 +59,8 @@ public class QuizServiceImpl implements QuizService {
 
         List<ConsistOf> consistOfList = new ArrayList<>();
 
+
+
         for(QuestionDto questionDtos :quizDto.getQuestionDtos()){
             ConsistOf consistOf = new ConsistOf();
 
@@ -70,6 +73,8 @@ public class QuizServiceImpl implements QuizService {
 
         }
 
+
+
         q.setQuestions(questionList);
         q = quizRepository.save(q);
 
@@ -77,6 +82,14 @@ public class QuizServiceImpl implements QuizService {
         for(ConsistOf conf : consistOfList){
             conf.setQuizId(q.getId());
             conf=consistOfRepository.save(conf);
+        }
+
+        for (Tag tags : quizDto.getTags()){
+            QuizTags tag = new QuizTags();
+            tag.setQuizId(q.getId());
+            tag.setTag(tags.getTagName());
+            tag=quizTagsRepository.save(tag);
+
         }
 
 

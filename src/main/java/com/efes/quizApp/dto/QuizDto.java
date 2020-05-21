@@ -1,6 +1,7 @@
 package com.efes.quizApp.dto;
 
 
+import com.efes.quizApp.entity.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,10 @@ public class QuizDto {
 
     private int privateOfId; // fk to companyId
 
-     private List<QuestionDto> questionDtos;
+    private List<QuestionDto> questionDtos;
+
+    private List<Tag> tags;
+
 
 
 }

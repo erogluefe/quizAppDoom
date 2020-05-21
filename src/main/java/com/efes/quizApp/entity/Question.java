@@ -95,11 +95,17 @@ public class Question extends BaseEntity {
     private String optionD;
 
 
-
+/*
     @JoinColumn(name = "quizConnectId")
     @ManyToOne(fetch = FetchType.LAZY)
     // @Column(name = "quizId")
-    private Quiz quizId;
+    private Long quizId;
+
+ */
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "quiz_id", nullable = false)
+    private Quiz quiz;
 
 
     public Question(long i, String q1) {
