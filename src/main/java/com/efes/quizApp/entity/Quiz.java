@@ -52,14 +52,17 @@ public class Quiz {
     @Column(name = "privateOfId")
     private int privateOfId; // fk to companyId
 
-
+/*
     @JoinColumn(name = "quizConnectId")
     @OneToMany(fetch = FetchType.LAZY)
   //  @Column(name = "questions")
     private List<Question> questions;
+*/
 
-
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "quiz_tag_fk",
+            joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "quiz_Id", referencedColumnName = "id"))
     private List<Tag> tags;
 
 

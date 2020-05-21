@@ -26,6 +26,8 @@ public class QuestionDto {
 
     private int is_public;
 
+    private String answers;
+
     private QuizDto quiz;
 
 }

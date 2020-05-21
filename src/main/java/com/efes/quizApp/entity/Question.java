@@ -2,6 +2,7 @@ package com.efes.quizApp.entity;
 
 
 import lombok.*;
+import org.springframework.scheduling.support.SimpleTriggerContext;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,8 +15,17 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 @Table(name = "question")
 public class Question extends BaseEntity {
+   /*
+    {
+        description: string,
+                difficulty: Difficulty,
+            correctOption: Option,
+            options: string[],
+        tags: Tag[]
+    }
 
 
+    */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -42,6 +52,9 @@ public class Question extends BaseEntity {
     //@NotNull
     @Column(name = "is_public")
     private int is_public;
+
+    @Column(name = "answers")
+    private String answers;
 
 
 
