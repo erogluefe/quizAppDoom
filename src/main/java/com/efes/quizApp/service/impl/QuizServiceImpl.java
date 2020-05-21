@@ -162,6 +162,11 @@ public class QuizServiceImpl implements QuizService {
         return Arrays.asList(modelMapper.map(quizRepository.findSpecificNameQuizzes(name),QuizDto[].class));
     }
 
+    @Override
+    public List<QuizDto> getSelectedCreatorQuiz(int creatorName) {
+        List<Quiz> quizzes = quizRepository.getByCuratedId(creatorName);
+        return Arrays.asList(modelMapper.map(quizzes,QuizDto[].class));
+    }
 
     //    @Override
 //    public Boolean addQuestion(Long Quesid, Long QuizId) {

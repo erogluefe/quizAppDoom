@@ -40,5 +40,9 @@ public interface QuizService {
 
     List<QuizDto> getSpecQuizzes(String name);
 
+    List<QuizDto> getSelectedCreatorQuiz(int creatorName);
+
+
+
 
 }

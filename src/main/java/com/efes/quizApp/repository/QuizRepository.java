@@ -38,6 +38,9 @@ public interface QuizRepository extends JpaRepository<Quiz,Long> {
     List<Quiz> findAll(Sort sort);
 
 
+    List<Quiz> getByCuratedId(int quizCreator);
+
+
 
     @Query(
             value = "SELECT * FROM quiz u WHERE u.id = 23",

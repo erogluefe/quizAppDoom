@@ -85,6 +85,13 @@ public class QuizController {
         return ResponseEntity.ok(dtos);
 
     }
+    @GetMapping("/admin/{adminId}")
+    @ApiOperation(value = "Get time of Quiz",response = QuizDto[].class)
+    public ResponseEntity<List<QuizDto>> getCreatorsQuiz(@PathVariable(value = "adminId") int adminId){
+        List<QuizDto> dtos= quizServiceImpl.getSelectedCreatorQuiz(adminId);
+        return ResponseEntity.ok(dtos);
+
+    }
 
 
 
