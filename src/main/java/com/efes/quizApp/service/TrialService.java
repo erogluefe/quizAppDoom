@@ -1,7 +1,12 @@
 package com.efes.quizApp.service;
 
 import com.efes.quizApp.dto.TrialDto;
-import com.efes.quizApp.dto.WrapTrialDto;
+import com.efes.quizApp.dto.WrapDto;
+import com.efes.quizApp.entity.Quiz;
+import org.springframework.data.util.Pair;
+
+
+import java.util.List;
 
 public interface TrialService {
 
@@ -11,11 +16,10 @@ public interface TrialService {
 
     TrialDto getById(Long devId, Long quizId, int noTrials);
 
-    WrapTrialDto getTrials(Long quizId, Long devId);
+    WrapDto<List<TrialDto>> getTrials(Long quizId, Long devId);
 
-    WrapTrialDto getAllDevTrials(Long devId);
+    WrapDto<List<Pair<Quiz, List<TrialDto>>>> getAllDevTrials(Long devId);
 
-    WrapTrialDto getQuizTrials(Long quizId);
+    WrapDto<List<TrialDto>> getQuizTrials(Long quizId);
 
-    // need functionality to delete trials
 }

@@ -10,6 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class WrapTrialDto {
-    List<TrialDto> trialDtoList;
+public class WrapDto<T> {
+    T list;
 }
