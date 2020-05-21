@@ -1,6 +1,5 @@
 package com.efes.quizApp.dto;
 
-import com.efes.quizApp.entity.TrialId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

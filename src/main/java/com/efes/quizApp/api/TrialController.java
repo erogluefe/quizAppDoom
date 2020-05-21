@@ -33,7 +33,7 @@ public class TrialController {
     }
 
     @GetMapping("/{devId}")
-    @ApiOperation(value = "Get operation based on devId", response = WrapDto.class) // need to return a list
+    @ApiOperation(value = "Get operation based on devId", response = WrapDto.class)
     public ResponseEntity<WrapDto<List<Pair<Quiz,List<TrialDto>>>>> getByDevId(@PathVariable(value = "devId",required = true) Long devId){
         WrapDto<List<Pair<Quiz,List<TrialDto>>>> dto=  trialServiceImpl.getAllDevTrials(devId);
         return ResponseEntity.ok(dto);

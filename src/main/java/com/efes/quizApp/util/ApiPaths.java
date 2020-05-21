@@ -23,4 +23,7 @@ public final class ApiPaths {
     public static  final  class ImageCtrl{
         public static  final String CTRL = BASE_PATH + "/image";
     }
+    public static  final  class RequestsInterviewCtrl{
+        public static  final String CTRL = BASE_PATH + "/req_int";
+    }
 }
