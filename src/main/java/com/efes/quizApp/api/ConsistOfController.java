@@ -37,7 +37,7 @@ public class ConsistOfController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Get all questions",response = QuestionDto.class)
+    @ApiOperation(value = "Get all questions",response = QuestionDto[].class)
     public ResponseEntity<List<QuestionDto>> getAllQuestions( @PathVariable(value = "id") Long id){
         List<QuestionDto> data = consistOfServiceImpl.getAlll(id);
         return ResponseEntity.ok(data);

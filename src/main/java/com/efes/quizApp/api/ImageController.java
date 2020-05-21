@@ -30,6 +30,7 @@ import java.util.Optional;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,15 +62,15 @@ public class ImageController {
     @PostMapping(value = "/upload")
     public BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
-        Image img = new Image(file.getOriginalFilename(), file.getContentType(),compressBytes(file.getBytes()));
+        Image img = new Image(file.getOriginalFilename(), file.getContentType(), compressBytes(file.getBytes()));
         imageRepository.save(img);
         return ResponseEntity.status(HttpStatus.OK);
     }
 
-    @GetMapping(path = { "/get/{imageName}" })
+    @GetMapping(path = {"/get/{imageName}"})
     public Image getImage(@PathVariable("imageName") String imageName) throws IOException {
         final Optional<Image> retrievedImage = imageRepository.findByName(imageName);
-        Image img = new Image(retrievedImage.get().getName(), retrievedImage.get().getType(),decompressBytes(retrievedImage.get().getPicByte()));
+        Image img = new Image(retrievedImage.get().getName(), retrievedImage.get().getType(), decompressBytes(retrievedImage.get().getPicByte()));
         return img;
     }
 
