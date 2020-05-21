@@ -26,6 +26,21 @@ public class QuestionDto {
 
     private int is_public;
 
+    private String optionA;
+
+    private String optionB;
+
+    private String optionC;
+
+    private String optionD;
+
+  //  public String[] answers;
+
+   // private String answers;
+
+   // private String[] answers;
+
+
     private QuizDto quiz;
 
 }

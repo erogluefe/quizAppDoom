@@ -7,6 +7,7 @@ import com.efes.quizApp.util.ApiPaths;
 import com.efes.quizApp.util.TPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,13 @@ public class QuizController {
     @ApiOperation(value = "Get by pagination Operation",response = QuizDto.class)
     public ResponseEntity<TPage<QuizDto>> getAllByPagination(Pageable pageable){
         TPage<QuizDto> data = quizServiceImpl.getAllPageable(pageable);
+        return ResponseEntity.ok(data);
+
+    }
+    @GetMapping("/getAllQuiz")
+    @ApiOperation(value = "Get All quizzes",response = QuizDto[].class)
+    public ResponseEntity<List<QuizDto>> getAllQuizzesWithFind(){
+        List<QuizDto> data = quizServiceImpl.getAllQuiz();
         return ResponseEntity.ok(data);
 
     }
@@ -113,10 +121,19 @@ public class QuizController {
 
     @PostMapping
     @ApiOperation(value = "create Operation",response = QuizDto.class)
-    public ResponseEntity<QuizDto> createQuiz(@Valid @RequestBody QuizDto projectDto){
-        return ResponseEntity.ok(quizServiceImpl.save(projectDto));
+    public ResponseEntity<QuizDto> createQuiz(@Valid @RequestBody QuizDto quizDto){
+        return ResponseEntity.ok(quizServiceImpl.save(quizDto));
 
     }
+/*
+    @PostMapping
+    @ApiOperation(value = "create Operation with Questions",response = QuizDto.class)
+    public ResponseEntity<QuizDto> createQuizWithQuestion(@Valid @RequestBody QuizDto quizDto,){
+        return ResponseEntity.ok(quizServiceImpl.save(quizDto));
+
+    }
+
+ */
 
     // @RequestMapping(path= "/update",method = RequestMethod.PUT)
     @PutMapping("/{id}")

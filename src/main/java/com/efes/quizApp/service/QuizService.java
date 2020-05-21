@@ -1,6 +1,7 @@
 package com.efes.quizApp.service;
 
 import com.efes.quizApp.dto.QuizDto;
+import com.efes.quizApp.entity.Quiz;
 import com.efes.quizApp.entity.costumGroupByClass;
 import com.efes.quizApp.util.TPage;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +42,8 @@ public interface QuizService {
     List<QuizDto> getSpecQuizzes(String name);
 
     List<QuizDto> getSelectedCreatorQuiz(int creatorName);
+
+    List<QuizDto> getAllQuiz();
 
 
 

@@ -2,9 +2,11 @@ package com.efes.quizApp.service.impl;
 
 import com.efes.quizApp.dto.QuestionDto;
 import com.efes.quizApp.dto.QuizDto;
+import com.efes.quizApp.entity.ConsistOf;
 import com.efes.quizApp.entity.Question;
 import com.efes.quizApp.entity.Quiz;
 import com.efes.quizApp.entity.costumGroupByClass;
+import com.efes.quizApp.repository.ConsistOfRepository;
 import com.efes.quizApp.repository.QuestionRepository;
 import com.efes.quizApp.repository.QuizRepository;
 import com.efes.quizApp.service.QuizService;
@@ -27,15 +29,18 @@ public class QuizServiceImpl implements QuizService {
 
     private final QuestionRepository questionRepository;
 
+    private final ConsistOfRepository consistOfRepository;
+
 
     private final ModelMapper modelMapper;
 
 
-    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper, QuestionRepository questionRepository) {
+    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper, QuestionRepository questionRepository,ConsistOfRepository consistOfRepository) {
 
         this.quizRepository = quizRepository;
         this.modelMapper = modelMapper;
         this.questionRepository = questionRepository;
+        this.consistOfRepository=consistOfRepository;
     }
 
 
@@ -48,9 +53,38 @@ public class QuizServiceImpl implements QuizService {
             throw new IllegalArgumentException("aynı quiz name var zaten");
 
         Quiz q = modelMapper.map(quizDto, Quiz.class);
+
+        List<Question> questionList = new ArrayList<>();
+
+        List<ConsistOf> consistOfList = new ArrayList<>();
+
+        for(QuestionDto questionDtos :quizDto.getQuestionDtos()){
+            ConsistOf consistOf = new ConsistOf();
+
+            Question RealQuestion = modelMapper.map(questionDtos, Question.class);
+            RealQuestion= questionRepository.save(RealQuestion);
+            consistOf.setQuestionId(RealQuestion.getId()); //yeni
+            consistOfList.add(consistOf); // yeni
+            //RealQuestion.setId(questionDtos.getId());
+            questionList.add(RealQuestion);
+
+        }
+
+        q.setQuestions(questionList);
         q = quizRepository.save(q);
+
+
+        for(ConsistOf conf : consistOfList){
+            conf.setQuizId(q.getId());
+            conf=consistOfRepository.save(conf);
+        }
+
+
+
         quizDto.setId(q.getId());
         return quizDto;
+
+
     }
 
     @Override
@@ -167,6 +201,12 @@ public class QuizServiceImpl implements QuizService {
         List<Quiz> quizzes = quizRepository.getByCuratedId(creatorName);
         return Arrays.asList(modelMapper.map(quizzes,QuizDto[].class));
     }
+
+    @Override
+    public List<QuizDto> getAllQuiz() {
+        return Arrays.asList(modelMapper.map(quizRepository.findAll(),QuizDto[].class));
+    }
+
 
     //    @Override
 //    public Boolean addQuestion(Long Quesid, Long QuizId) {

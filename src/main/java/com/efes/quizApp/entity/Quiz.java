@@ -28,7 +28,7 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "quizId",unique = true,nullable = false)
+    @Column(name = "quizId",unique = true)
     private int quizId;
 
     @Column(name = "difficulty",nullable = false)
@@ -59,9 +59,14 @@ public class Quiz {
     private List<Question> questions;
 
 
-    @ManyToMany
+/*
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "quiz_tag_fk",
+            joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "quiz_Id", referencedColumnName = "id"))
     private List<Tag> tags;
 
+ */
 
 
 

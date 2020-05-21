@@ -122,6 +122,11 @@ public class QuestionServiceImpl implements QuestionService {
         questionDb.setDifficulty(questionDto.getDifficulty());
         questionDb.setCorrect_option(questionDto.getCorrect_option());
         questionDb.setIs_public(questionDto.getIs_public());
+        questionDb.setOptionA(questionDto.getOptionA());
+        questionDb.setOptionB(questionDto.getOptionB());
+        questionDb.setOptionC(questionDto.getOptionC());
+        questionDb.setOptionD(questionDto.getOptionD());
+
 
 
         questionRepository.save(questionDb);
@@ -137,6 +142,8 @@ public class QuestionServiceImpl implements QuestionService {
         return modelMapper.map(q, QuestionDto.class);
 
     }
+
+
 
 
 }

@@ -25,7 +25,6 @@ api path eklemek
 
  */
 
-
 @RestController
 @RequestMapping(ApiPaths.QuestionCtrl.CTRL)
 //@Api(value = "Project APIs")

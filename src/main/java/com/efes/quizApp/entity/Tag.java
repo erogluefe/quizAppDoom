@@ -20,9 +20,13 @@ public class Tag extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+ //   @ManyToMany(mappedBy = "tags")
+    @Column(name = "tagName",nullable = false)
+    private String tagName;
 
-    @ManyToMany(mappedBy = "tags")
-    private List<Quiz> quizzes;
+
+  //  @ManyToMany(mappedBy = "tags")
+  //  private List<Quiz> quizzes;
 
 
 }
