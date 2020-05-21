@@ -35,7 +35,7 @@ public class QuizDto {
 
     private List<QuestionDto> questionDtos;
 
-  //  private List<Tag> tags;
+    private List<Tag> tags;
 
 
 

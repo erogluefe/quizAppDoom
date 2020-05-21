@@ -1,6 +1,8 @@
 package com.efes.quizApp.api;
 
+import com.efes.quizApp.entity.QuizTags;
 import com.efes.quizApp.entity.Tag;
+import com.efes.quizApp.service.impl.QuizTagsImpl;
 import com.efes.quizApp.service.impl.TagServiceImpl;
 import com.efes.quizApp.util.ApiPaths;
 import io.swagger.annotations.Api;
@@ -23,10 +25,14 @@ public class TagController {
 
     private final TagServiceImpl tagServiceImpl;
 
+    private final QuizTagsImpl quizTagsImpl;
 
-    public TagController(TagServiceImpl tagServiceImpl) {
+
+
+    public TagController(TagServiceImpl tagServiceImpl,QuizTagsImpl quizTagsImpl) {
 
         this.tagServiceImpl = tagServiceImpl;
+        this.quizTagsImpl=quizTagsImpl;
     }
 
 
@@ -34,6 +40,14 @@ public class TagController {
     @ApiOperation(value = "Get all questions",response = Tag[].class)
     public ResponseEntity<List<Tag>> getAllQuestions(){
         List<Tag> data = tagServiceImpl.getAllTags();
+        return ResponseEntity.ok(data);
+
+    }
+
+    @GetMapping("/getBy/{id}")
+    @ApiOperation(value = "Get all questions",response = Tag[].class)
+    public ResponseEntity<List<QuizTags>> getAllQuestions(@PathVariable("id")Long id){
+        List<QuizTags> data = quizTagsImpl.getAllQuiz(id);
         return ResponseEntity.ok(data);
 
     }

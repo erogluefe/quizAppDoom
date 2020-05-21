@@ -2,10 +2,7 @@ package com.efes.quizApp.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 
@@ -15,14 +12,19 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name = "quizTags")
+@Table(name = "quizTagss")
 public class QuizTags implements Serializable {
 
 
-    @Column(name = "quizId")
-    private Long quizId;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+
+    @Column(name = "tagQuizId")
+    private Long tagQuizId;
+
+
     @Column(name = "tag")
     private String tag;
 }

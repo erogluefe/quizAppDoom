@@ -35,13 +35,13 @@ public class QuizServiceImpl implements QuizService {
     private final ModelMapper modelMapper;
 
 
-    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper, QuestionRepository questionRepository,ConsistOfRepository consistOfRepository,QuizTagsRepository quizTagsRepository) {
+    public QuizServiceImpl(QuizRepository quizRepository, ModelMapper modelMapper, QuestionRepository questionRepository, ConsistOfRepository consistOfRepository, QuizTagsRepository quizTagsRepository) {
 
         this.quizRepository = quizRepository;
         this.modelMapper = modelMapper;
         this.questionRepository = questionRepository;
-        this.consistOfRepository=consistOfRepository;
-        this.quizTagsRepository=quizTagsRepository;
+        this.consistOfRepository = consistOfRepository;
+        this.quizTagsRepository = quizTagsRepository;
     }
 
 
@@ -59,11 +59,11 @@ public class QuizServiceImpl implements QuizService {
 
         List<ConsistOf> consistOfList = new ArrayList<>();
 
-        for(QuestionDto questionDtos :quizDto.getQuestionDtos()){
+        for (QuestionDto questionDtos : quizDto.getQuestionDtos()) {
             ConsistOf consistOf = new ConsistOf();
 
             Question RealQuestion = modelMapper.map(questionDtos, Question.class);
-            RealQuestion= questionRepository.save(RealQuestion);
+            RealQuestion = questionRepository.save(RealQuestion);
             consistOf.setQuestionId(RealQuestion.getId()); //yeni
             consistOfList.add(consistOf); // yeni
             //RealQuestion.setId(questionDtos.getId());
@@ -72,26 +72,27 @@ public class QuizServiceImpl implements QuizService {
         }
 
 
-
         q.setQuestions(questionList);
         q = quizRepository.save(q);
 
 
-        for(ConsistOf conf : consistOfList){
+        for (ConsistOf conf : consistOfList) {
             conf.setQuizId(q.getId());
-            conf=consistOfRepository.save(conf);
+            conf = consistOfRepository.save(conf);
         }
 
-        /*
-        for (Tag tags : quizDto.getTags()){
-            QuizTags tag = new QuizTags();
-            tag.setQuizId(q.getId());
-            tag.setTag(tags.getTagName());
-            tag=quizTagsRepository.save(tag);
 
-        }
+       for (Tag tags : quizDto.getTags()) {
 
-         */
+           QuizTags tag = new QuizTags();
+           tag.setTagQuizId(q.getId());
+           tag.setTag(tags.getTagNamee());
+           tag = quizTagsRepository.save(tag);
+
+       }
+
+
+
 
 
 
@@ -202,23 +203,23 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public List<QuizDto> getSpecTime(int first, int second) {
-      return  Arrays.asList(modelMapper.map( quizRepository.findSpecificTime(first,second),QuizDto[].class));
+        return Arrays.asList(modelMapper.map(quizRepository.findSpecificTime(first, second), QuizDto[].class));
     }
 
     @Override
     public List<QuizDto> getSpecQuizzes(String name) {
-        return Arrays.asList(modelMapper.map(quizRepository.findSpecificNameQuizzes(name),QuizDto[].class));
+        return Arrays.asList(modelMapper.map(quizRepository.findSpecificNameQuizzes(name), QuizDto[].class));
     }
 
     @Override
     public List<QuizDto> getSelectedCreatorQuiz(int creatorName) {
         List<Quiz> quizzes = quizRepository.getByCuratedId(creatorName);
-        return Arrays.asList(modelMapper.map(quizzes,QuizDto[].class));
+        return Arrays.asList(modelMapper.map(quizzes, QuizDto[].class));
     }
 
     @Override
     public List<QuizDto> getAllQuiz() {
-        return Arrays.asList(modelMapper.map(quizRepository.findAll(),QuizDto[].class));
+        return Arrays.asList(modelMapper.map(quizRepository.findAll(), QuizDto[].class));
     }
 
 
