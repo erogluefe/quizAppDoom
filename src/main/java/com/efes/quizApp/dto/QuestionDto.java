@@ -41,6 +41,6 @@ public class QuestionDto {
    // private String[] answers;
 
 
-    private QuizDto quiz;
+ //   private QuizDto quiz;
 
 }

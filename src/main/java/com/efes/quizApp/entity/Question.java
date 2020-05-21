@@ -102,10 +102,10 @@ public class Question extends BaseEntity {
     private Long quizId;
 
  */
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
+//
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "quiz_id", nullable = false)
+//    private Quiz quiz;
 
 
     public Question(long i, String q1) {

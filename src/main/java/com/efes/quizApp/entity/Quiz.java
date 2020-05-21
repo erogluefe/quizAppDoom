@@ -57,8 +57,9 @@ public class Quiz {
   //  @OneToMany(fetch = FetchType.LAZY)
   //  @Column(name = "questions")
 
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+   // @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @ElementCollection(targetClass=Question.class)
     private List<Question> questions;
 //
 
@@ -68,6 +69,8 @@ public class Quiz {
     @JoinColumn(name = "quizConnectId")
     @OneToMany(fetch = FetchType.LAZY)
     private List<Tag> tags;
+
+
 
 
 /*

@@ -59,8 +59,6 @@ public class QuizServiceImpl implements QuizService {
 
         List<ConsistOf> consistOfList = new ArrayList<>();
 
-
-
         for(QuestionDto questionDtos :quizDto.getQuestionDtos()){
             ConsistOf consistOf = new ConsistOf();
 
@@ -84,6 +82,7 @@ public class QuizServiceImpl implements QuizService {
             conf=consistOfRepository.save(conf);
         }
 
+        /*
         for (Tag tags : quizDto.getTags()){
             QuizTags tag = new QuizTags();
             tag.setQuizId(q.getId());
@@ -91,6 +90,8 @@ public class QuizServiceImpl implements QuizService {
             tag=quizTagsRepository.save(tag);
 
         }
+
+         */
 
 
 
