@@ -25,5 +25,4 @@ public class ConsDto {
     private Long questionId;
 
 
-    private Long orderCons;
 }

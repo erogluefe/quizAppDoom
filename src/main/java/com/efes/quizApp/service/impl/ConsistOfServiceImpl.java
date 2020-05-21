@@ -74,7 +74,7 @@ public class ConsistOfServiceImpl implements ConsistOfService {
 
         constdb.setQuestionId(consDto.getQuestionId());
         constdb.setQuizId(consDto.getQuizId());
-        constdb.setOrderCons(consDto.getOrderCons());
+
 
 
         consistOfRepository.save(constdb);

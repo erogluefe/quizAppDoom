@@ -26,7 +26,6 @@ public class ConsistOf extends BaseEntity {
     @Column(name = "questionId",nullable = false)
     private Long questionId;
 
-    @Column(name = "orderCons",nullable = false)
-    private Long orderCons;
+
 
 }
