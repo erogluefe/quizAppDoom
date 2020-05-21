@@ -52,12 +52,12 @@ public class Quiz {
     @Column(name = "privateOfId")
     private int privateOfId; // fk to companyId
 
-/*
+
     @JoinColumn(name = "quizConnectId")
     @OneToMany(fetch = FetchType.LAZY)
   //  @Column(name = "questions")
     private List<Question> questions;
-*/
+
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "quiz_tag_fk",

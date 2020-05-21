@@ -32,7 +32,7 @@ public class QuizDto {
 
     private int privateOfId; // fk to companyId
 
-  //  private List<QuestionDto> questionDtos;
+     private List<QuestionDto> questionDtos;
 
 
 }
