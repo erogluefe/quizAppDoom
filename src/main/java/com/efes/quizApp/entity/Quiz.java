@@ -59,12 +59,14 @@ public class Quiz {
     private List<Question> questions;
 
 
+/*
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "quiz_tag_fk",
             joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "quiz_Id", referencedColumnName = "id"))
     private List<Tag> tags;
 
+ */
 
 
 
