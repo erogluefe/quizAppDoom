@@ -26,4 +26,7 @@ public final class ApiPaths {
     public static  final  class TagCtrl{
         public static  final String CTRL = BASE_PATH + "/tag";
     }
+    public static  final  class RequestsInterviewCtrl{
+        public static  final String CTRL = BASE_PATH + "/req_int";
+    }
 }
