@@ -1,7 +1,9 @@
 package com.efes.quizApp.entity;
 
 
+import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.springframework.scheduling.support.SimpleTriggerContext;
@@ -29,23 +31,34 @@ import javax.validation.constraints.NotNull;
 })
 
  */
+
+/*
+@TypeDef(
+        name = "string-array",
+        typeClass = StringArrayType.class
+)
+
+ */
+
 public class Question extends BaseEntity {
-   /*
-    {
-        description: string,
-                difficulty: Difficulty,
-            correctOption: Option,
-            options: string[],
-        tags: Tag[]
-    }
+    /*
+     {
+         description: string,
+                 difficulty: Difficulty,
+             correctOption: Option,
+             options: string[],
+         tags: Tag[]
+     }
 
 
-    */
+     */
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "questionCode",unique = true)
+    @Column(name = "questionCode", unique = true)
     private String questionCode;
 
 
@@ -68,18 +81,29 @@ public class Question extends BaseEntity {
     @Column(name = "is_public")
     private int is_public;
 
-    @Column(name = "answers")
-    private String answers;
+
+    @Column(name = "optionA")
+    private String optionA;
+
+    @Column(name = "optionB")
+    private String optionB;
+
+    @Column(name = "optionC")
+    private String optionC;
+
+    @Column(name = "optionD")
+    private String optionD;
+
 
 
     @JoinColumn(name = "quizConnectId")
-    @ManyToOne( fetch = FetchType.LAZY)
-   // @Column(name = "quizId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    // @Column(name = "quizId")
     private Quiz quizId;
 
 
     public Question(long i, String q1) {
         id = i;
-        correct_option =q1;
+        correct_option = q1;
     }
 }
