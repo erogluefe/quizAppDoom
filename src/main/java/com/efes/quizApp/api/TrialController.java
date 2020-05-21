@@ -2,12 +2,16 @@ package com.efes.quizApp.api;
 
 
 import com.efes.quizApp.dto.TrialDto;
-import com.efes.quizApp.dto.WrapTrialDto;
+import com.efes.quizApp.dto.WrapDto;
+import com.efes.quizApp.entity.Quiz;
 import com.efes.quizApp.service.impl.TrialServiceImpl;
 import com.efes.quizApp.util.ApiPaths;
+import org.springframework.data.util.Pair;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,24 +33,24 @@ public class TrialController {
     }
 
     @GetMapping("/{devId}")
-    @ApiOperation(value = "Get operation based on devId", response = WrapTrialDto.class) // need to return a list
-    public ResponseEntity<WrapTrialDto> getByDevId(@PathVariable(value = "devId",required = true) Long devId){
-        WrapTrialDto dto=  trialServiceImpl.getAllDevTrials(devId);
+    @ApiOperation(value = "Get operation based on devId", response = WrapDto.class) // need to return a list
+    public ResponseEntity<WrapDto<List<Pair<Quiz,List<TrialDto>>>>> getByDevId(@PathVariable(value = "devId",required = true) Long devId){
+        WrapDto<List<Pair<Quiz,List<TrialDto>>>> dto=  trialServiceImpl.getAllDevTrials(devId);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/quiz/{quizId}")
-    @ApiOperation(value = "Get operation based on quizId", response = WrapTrialDto.class) // need to return a list
-    public ResponseEntity<WrapTrialDto> getByQuizId(@PathVariable(value = "quizId",required = true) Long quizId){
-        WrapTrialDto dto=  trialServiceImpl.getQuizTrials(quizId);
+    @ApiOperation(value = "Get operation based on quizId", response = WrapDto.class) // need to return a list
+    public ResponseEntity<WrapDto<List<TrialDto>>> getByQuizId(@PathVariable(value = "quizId",required = true) Long quizId){
+        WrapDto<List<TrialDto>> dto=  trialServiceImpl.getQuizTrials(quizId);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{quizId}/{devId}")
-    @ApiOperation(value = "Get all trials of a developer in a quiz", response = WrapTrialDto.class)
-    public ResponseEntity<WrapTrialDto> getTrials(@PathVariable(value = "quizId") Long quizId
+    @ApiOperation(value = "Get all trials of a developer in a quiz", response = WrapDto.class)
+    public ResponseEntity<WrapDto<List<TrialDto>>> getTrials(@PathVariable(value = "quizId") Long quizId
             ,@PathVariable(value = "devId") Long devId){
-        WrapTrialDto dto = trialServiceImpl.getTrials(quizId,devId);
+        WrapDto<List<TrialDto>> dto = trialServiceImpl.getTrials(quizId,devId);
         return ResponseEntity.ok(dto);
     }
 

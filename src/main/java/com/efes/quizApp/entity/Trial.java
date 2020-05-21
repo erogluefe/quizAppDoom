@@ -3,6 +3,7 @@ package com.efes.quizApp.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -16,20 +17,25 @@ import javax.persistence.*;
 public class Trial extends BaseEntity{
 
     @Id
+//    @ManyToOne
     @Column(name = "devId", nullable = false)
     private long devId;
 
     @Id
+//    @ManyToOne
     @Column(name = "quizId", nullable = false)
     private long quizId;
 
     @Id
-    @Column(name = "trial_no", nullable = false)
+    @Column(name = "trialNo", nullable = false)
     private int trialNo;
 
     @Column(name = "successRate")
     private double successRate;
 
     @Column( name= "choosenOptions")
-    private int choosenOptions;
+    private String choosenOptions;
+
+    @Column( name = "passed")
+    private boolean passed;
 }

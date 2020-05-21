@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,9 +16,11 @@ public class TrialDto {
 
     private Long quizId;
 
-    private int trial_no;
+    private int trialNo;
 
-    private double success_rate;
+    private double successRate;
 
-    private int choosen_options;
+    private List<String> choosenOptions;
+
+    private boolean passed;
 }

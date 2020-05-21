@@ -64,6 +64,8 @@ public class Question extends BaseEntity {
     private Quiz quizId;
 
 
-
-
+    public Question(long i, String q1) {
+        id = i;
+        correct_option =q1;
+    }
 }
