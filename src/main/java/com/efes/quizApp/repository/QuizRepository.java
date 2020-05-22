@@ -40,26 +40,6 @@ public interface QuizRepository extends JpaRepository<Quiz,Long> {
 
 
 
-
-
-    Quiz getById(Long id);
-
-    Quiz getByName(String name);
-
-
-    List<Quiz> getByNameContains(String description);
-
-    Quiz getByNameAndIdNot(String name, Long id);
-
-    Page<Quiz> findAll(Pageable pageable);
-
-    List<Quiz> findAll(Sort sort);
-
-
-    List<Quiz> getByCuratedId(int quizCreator);
-
-
-
     @Query(
             value = "SELECT * FROM quiz u WHERE u.id = 23",
             nativeQuery = true)
@@ -107,6 +87,24 @@ public interface QuizRepository extends JpaRepository<Quiz,Long> {
     List<Quiz> findSpecificNameQuizzes(@Param("quizName") String quizName);
 
 
+
+
+
+    Quiz getById(Long id);
+
+    Quiz getByName(String name);
+
+
+    List<Quiz> getByNameContains(String description);
+
+    Quiz getByNameAndIdNot(String name, Long id);
+
+    Page<Quiz> findAll(Pageable pageable);
+
+    List<Quiz> findAll(Sort sort);
+
+
+    List<Quiz> getByCuratedId(int quizCreator);
 
     // buraya istediğimiz rakamı eklemeye bakalım bi ara.
 

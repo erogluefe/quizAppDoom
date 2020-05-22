@@ -17,9 +17,22 @@ import java.util.List;
 public interface ConsistOfRepository extends JpaRepository<ConsistOf, Long> {
 
 
-    List<ConsistOf> getByQuizId(Long id);
 
-    Page<ConsistOf> findAll(Pageable pageable);
+    @Transactional
+    @Query(value = "SELECT * FROM consist_of u WHERE u.id = :consId", nativeQuery = true)
+    ConsistOf selectOneNativeSql(@Param("consId") Long consId);
+
+    @Modifying
+    @Query(value = "insert into consist_of (question_id,quiz_id) VALUES (:nameOfQuiz,:idOfQuiz)", nativeQuery = true)
+    @Transactional
+    void addByConsNativeSql(@Param("nameOfQuiz") String nameOfQuiz, @Param("idOfQuiz") Long idOfQuiz);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM consist_of  u WHERE u.quiz_id = :idOfQuiz ",nativeQuery = true)
+    void deleteByConsNativeSql(@Param("idOfQuiz") Long idOfQuiz);
+
 
 
     @Transactional
@@ -39,6 +52,10 @@ public interface ConsistOfRepository extends JpaRepository<ConsistOf, Long> {
     void deleteSpecificQuestionsInSpecificQuiz(@Param("idOfQuestion") Long idOfQuestion,@Param("idOfQuiz") Long idOfQuiz);
 
 
+
+    List<ConsistOf> getByQuizId(Long id);
+
+    Page<ConsistOf> findAll(Pageable pageable);
 
     /*
     @Modifying
