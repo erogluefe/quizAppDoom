@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {@Index(name = "emailInd", columnList = "email")})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
