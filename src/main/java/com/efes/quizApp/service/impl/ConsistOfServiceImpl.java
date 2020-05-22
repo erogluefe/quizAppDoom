@@ -64,6 +64,11 @@ public class ConsistOfServiceImpl implements ConsistOfService {
 
     }
 
+    @Override
+    public void deleteAllQuizQuestions(Long id) {
+        consistOfRepository.deleteAllQuestionsInQuiz(id);
+
+    }
 
     @Override
     public ConsDto update(Long id, ConsDto consDto) {

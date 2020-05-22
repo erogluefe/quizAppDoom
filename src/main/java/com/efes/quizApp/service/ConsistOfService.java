@@ -12,13 +12,15 @@ public interface ConsistOfService {
 
     ConsDto save(ConsDto consistOf);
 
-    Boolean delete(ConsDto project);
+    Boolean delete(ConsDto consDto);
 
     ConsDto update(Long id, ConsDto questionDto);
 
     ConsDto getAllQuestions();
 
     ConsDto getById(Long id);
+
+    void deleteAllQuizQuestions(Long id);
 
     List<Question> getAllQuestionsInQuiz(Long quizId);
 

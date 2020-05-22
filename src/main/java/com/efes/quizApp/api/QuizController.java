@@ -2,7 +2,10 @@ package com.efes.quizApp.api;
 
 import com.efes.quizApp.dto.QuizDto;
 import com.efes.quizApp.entity.costumGroupByClass;
+import com.efes.quizApp.service.impl.ConsistOfServiceImpl;
+import com.efes.quizApp.service.impl.QuestionServiceImpl;
 import com.efes.quizApp.service.impl.QuizServiceImpl;
+import com.efes.quizApp.service.impl.QuizTagsImpl;
 import com.efes.quizApp.util.ApiPaths;
 import com.efes.quizApp.util.TPage;
 import io.swagger.annotations.Api;
@@ -24,9 +27,17 @@ public class QuizController {
 
     private final QuizServiceImpl quizServiceImpl;
 
-    public QuizController(QuizServiceImpl quizServiceImpl){
+    private final ConsistOfServiceImpl consistOfServiceImpl;
 
-        this.quizServiceImpl=quizServiceImpl;
+    private final QuestionServiceImpl questionServiceImpl;
+
+    private final QuizTagsImpl quizTagsImpl;
+
+    public QuizController(QuizServiceImpl quizServiceImpl, ConsistOfServiceImpl consistOfServiceImpl, QuestionServiceImpl questionServiceImpl, QuizTagsImpl quizTagsImpl) {
+        this.quizServiceImpl = quizServiceImpl;
+        this.consistOfServiceImpl = consistOfServiceImpl;
+        this.questionServiceImpl = questionServiceImpl;
+        this.quizTagsImpl = quizTagsImpl;
     }
 
     @GetMapping("/pagination")
@@ -60,14 +71,14 @@ public class QuizController {
 
     }
     @GetMapping("/hardest")
-    @ApiOperation(value = "Get Hardest Quiz",response = QuizDto.class)
+    @ApiOperation(value = "Get Hardest Quiz",response = QuizDto[].class)
     public ResponseEntity<List<QuizDto>> getHardestQuiz(){
         List<QuizDto> dtos= quizServiceImpl.getHardest();
         return ResponseEntity.ok(dtos);
 
     }
     @GetMapping("/easy")
-    @ApiOperation(value = "Get Easitest Quiz",response = QuizDto.class)
+    @ApiOperation(value = "Get Easitest Quiz",response = QuizDto[].class)
     public ResponseEntity<List<QuizDto>> getEasyQuiz(){
         List<QuizDto> dtos= quizServiceImpl.getEasy();
         return ResponseEntity.ok(dtos);
@@ -140,8 +151,12 @@ public class QuizController {
 //    @ApiOperation(value = "update Operation",response = ProjectDto.class)
     public ResponseEntity<QuizDto> updateQuiz(@PathVariable(value = "id",required = true) Long id, @Valid @RequestBody QuizDto quizDto){
 
-        return ResponseEntity.ok( quizServiceImpl.update(id,quizDto));
+        consistOfServiceImpl.deleteAllQuizQuestions(id);
 
+        quizTagsImpl.deleteAllTagsInQuiz(id);
+
+      //  return ResponseEntity.ok( quizServiceImpl.update(id,quizDto));
+        return ResponseEntity.ok(quizServiceImpl.update(id,quizDto));
 
     }
 

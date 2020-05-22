@@ -40,7 +40,7 @@ public class Quiz {
     @Column(name = "timeLimit")
     private int timeLimit;
 
-    @Column(name = "name",nullable = false,unique = true)
+    @Column(name = "name",nullable = false)
     private String name;
 
     @Column(name = "ResolvedId") // buda nullabalce olacak ama mantığını tam anlamak lazım.

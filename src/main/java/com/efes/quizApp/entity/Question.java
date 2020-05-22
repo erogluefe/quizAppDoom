@@ -58,7 +58,7 @@ public class Question extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "questionCode", unique = true)
+    @Column(name = "questionCode")
     private String questionCode;
 
 

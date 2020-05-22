@@ -14,12 +14,18 @@ public class QuizTagsImpl {
 
 
     public QuizTagsImpl(QuizTagsRepository quizTagsRepository) {
+
         this.quizTagsRepository = quizTagsRepository;
     }
 
 
     public List<QuizTags> getAllQuiz(Long id) {
         return quizTagsRepository.getByTagQuizId(id);
+    }
+
+    public void deleteAllTagsInQuiz(Long id){
+        quizTagsRepository.deleteAllByTagQuizId(id);
+
     }
 
 }

@@ -36,10 +36,9 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionDto save(QuestionDto questionDto) {
 
-        Question questionCheck = questionRepository.getByQuestionCode(questionDto.getQuestionCode());
+     //   Question questionCheck = questionRepository.getByQuestionCode(questionDto.getQuestionCode());
 
-        if (questionCheck != null)
-            throw new IllegalArgumentException("aynı question kod var zaten");
+     //   if (questionCheck != null) throw new IllegalArgumentException("aynı question kod var zaten");
 
         Question q = modelMapper.map(questionDto, Question.class);
 
@@ -103,12 +102,12 @@ public class QuestionServiceImpl implements QuestionService {
         if (questionDb == null)
             throw new IllegalArgumentException("bu kayıt db de yok ID: " + id);
 
-        //  Project projectCheck = projectRepository.getByProjectCode(project.getProjectCode());
+        /////  Project projectCheck = projectRepository.getByProjectCode(project.getProjectCode());
 
-        Question questionCheck= questionRepository.getByQuestionCodeAndIdNot(questionDto.getQuestionCode(),id);
+       // Question questionCheck= questionRepository.getByQuestionCodeAndIdNot(questionDto.getQuestionCode(),id);
         // alttaki satır bir şeyler değişecek ve üsttekiyle birleşecek.
-        if (questionCheck!=null)
-            throw new IllegalArgumentException("aynı question kod var zaten");
+      //  if (questionCheck!=null)
+       //     throw new IllegalArgumentException("aynı question kod var zaten");
 
 
         //  if (projectCheck != null && projectCheck.getId() !=projectDb.getId())

@@ -32,6 +32,7 @@ public class QuizServiceImpl implements QuizService {
     private final QuizTagsRepository quizTagsRepository;
 
 
+
     private final ModelMapper modelMapper;
 
 
@@ -48,12 +49,71 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public QuizDto save(QuizDto quizDto) {
 
-        Quiz quizCheck = quizRepository.getByName(quizDto.getName());
+      Quiz quizCheck = quizRepository.getByName(quizDto.getName());
 
+      if (quizCheck != null)
+          throw new IllegalArgumentException("aynı quiz name var zaten");
+
+        Quiz q = modelMapper.map(quizDto, Quiz.class);
+
+        List<Question> questionList = new ArrayList<>();
+
+        List<ConsistOf> consistOfList = new ArrayList<>();
+
+        for (QuestionDto questionDtos : quizDto.getQuestionDtos()) {
+            ConsistOf consistOf = new ConsistOf();
+            Question RealQuestion = modelMapper.map(questionDtos, Question.class);
+
+            RealQuestion = questionRepository.save(RealQuestion);
+
+            consistOf.setQuestionId(RealQuestion.getId()); //yeni
+            consistOfList.add(consistOf); // yeni
+            questionList.add(RealQuestion);
+        }
+
+        q.setQuestions(questionList);
+        q = quizRepository.save(q);
+
+        for (ConsistOf conf : consistOfList) {
+            conf.setQuizId(q.getId());
+            conf = consistOfRepository.save(conf);
+        }
+
+       for (Tag tags : quizDto.getTags()) {
+
+           QuizTags tag = new QuizTags();
+           tag.setTagQuizId(q.getId());
+           tag.setTag(tags.getTagNamee());
+           tag = quizTagsRepository.save(tag);
+
+       }
+
+
+        quizDto.setId(q.getId());
+        return quizDto;
+
+
+    }
+
+    @Override
+    public QuizDto update(Long id, QuizDto quizDto) {
+
+        Quiz quizDb = quizRepository.getOne(id);
+        if (quizDb == null)
+            throw new IllegalArgumentException("bu kayıt db de yok ID: " + id);
+        Quiz quizCheck = quizRepository.getByNameAndIdNot(quizDto.getName(), id);
         if (quizCheck != null)
             throw new IllegalArgumentException("aynı quiz name var zaten");
 
-        Quiz q = modelMapper.map(quizDto, Quiz.class);
+
+
+        quizDb.setDifficulty(quizDto.getDifficulty());
+        quizDb.setType(quizDto.getType());
+        quizDb.setTimeLimit(quizDto.getTimeLimit());
+        quizDb.setName(quizDto.getName());
+        quizDb.setResolvedId(quizDto.getResolvedId());
+        quizDb.setCuratedId(quizDto.getCuratedId());
+        quizDb.setPrivateOfId(quizDto.getPrivateOfId());
 
         List<Question> questionList = new ArrayList<>();
 
@@ -66,42 +126,29 @@ public class QuizServiceImpl implements QuizService {
             RealQuestion = questionRepository.save(RealQuestion);
             consistOf.setQuestionId(RealQuestion.getId()); //yeni
             consistOfList.add(consistOf); // yeni
-            //RealQuestion.setId(questionDtos.getId());
             questionList.add(RealQuestion);
-
         }
 
-
-        q.setQuestions(questionList);
-        q = quizRepository.save(q);
-
+        quizDb.setQuestions(questionList);
 
         for (ConsistOf conf : consistOfList) {
-            conf.setQuizId(q.getId());
+            conf.setQuizId(quizDb.getId());
             conf = consistOfRepository.save(conf);
         }
 
+        for (Tag tags : quizDto.getTags()) {
 
-       for (Tag tags : quizDto.getTags()) {
+            QuizTags tag = new QuizTags();
+            tag.setTagQuizId(quizDb.getId());
+            tag.setTag(tags.getTagNamee());
+            tag = quizTagsRepository.save(tag);
 
-           QuizTags tag = new QuizTags();
-           tag.setTagQuizId(q.getId());
-           tag.setTag(tags.getTagNamee());
-           tag = quizTagsRepository.save(tag);
-
-       }
-
-
-
-
-
-
-        quizDto.setId(q.getId());
-        return quizDto;
+        }
+        quizRepository.save(quizDb);
+        return modelMapper.map(quizDb, QuizDto.class);
 
 
     }
-
     @Override
     public QuizDto getById(Long id) {
         Quiz q = quizRepository.getOne(id);
@@ -144,31 +191,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
 
-    @Override
-    public QuizDto update(Long id, QuizDto quizDto) {
 
-        Quiz quizDb = quizRepository.getOne(id);
-        if (quizDb == null)
-            throw new IllegalArgumentException("bu kayıt db de yok ID: " + id);
-        Quiz quizCheck = quizRepository.getByNameAndIdNot(quizDto.getName(), id);
-        if (quizCheck != null)
-            throw new IllegalArgumentException("aynı quiz name var zaten");
-
-
-        quizDb.setDifficulty(quizDto.getDifficulty());
-
-        quizDb.setType(quizDto.getType());
-        quizDb.setTimeLimit(quizDto.getTimeLimit());
-        quizDb.setName(quizDto.getName());
-        quizDb.setResolvedId(quizDto.getResolvedId());
-        quizDb.setCuratedId(quizDto.getCuratedId());
-        quizDb.setPrivateOfId(quizDto.getPrivateOfId());
-
-        quizRepository.save(quizDb);
-        return modelMapper.map(quizDb, QuizDto.class);
-
-
-    }
 
     @Override
     public QuizDto getAllQuizzes() {

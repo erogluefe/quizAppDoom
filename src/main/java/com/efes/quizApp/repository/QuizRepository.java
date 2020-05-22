@@ -84,9 +84,11 @@ public interface QuizRepository extends JpaRepository<Quiz,Long> {
 
     @Transactional
     @Query(
-            value = "SELECT * FROM quiz u WHERE u.name LIKE %:quizName% ",
+            value = "SELECT * FROM quiz u WHERE LOWER (u.name) LIKE LOWER (%:quizName% )",
             nativeQuery = true)
     List<Quiz> findSpecificNameQuizzes(@Param("quizName") String quizName);
+
+
 
 
 

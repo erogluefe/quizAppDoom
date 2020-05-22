@@ -27,6 +27,11 @@ public interface ConsistOfRepository extends JpaRepository<ConsistOf, Long> {
     @Query(value = "DELETE FROM consist_of u WHERE u.question_id = :idOfQuestion ",nativeQuery = true)
     void deleteSpecificQuestions(@Param("idOfQuestion") Long idOfQuestion);
 
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM consist_of u WHERE u.quiz_id = :quizIdd ",nativeQuery = true)
+    void deleteAllQuestionsInQuiz(@Param("quizIdd") Long quizIdd);
+
 
     @Transactional
     @Modifying
