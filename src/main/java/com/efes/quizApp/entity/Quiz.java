@@ -68,9 +68,8 @@ public class Quiz {
 //
    // @ElementCollection(targetClass=Tag.class)
 
-    @JoinColumn(name = "quizConnectId")
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Tag> tags;
+
+
 
 
 

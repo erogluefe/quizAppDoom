@@ -5,7 +5,6 @@ import com.efes.quizApp.entity.QuizTags;
 import com.efes.quizApp.repository.QuizTagsRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
