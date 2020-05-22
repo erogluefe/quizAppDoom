@@ -22,6 +22,24 @@ import java.util.List;
 
 public interface QuizRepository extends JpaRepository<Quiz,Long> {
 
+    @Modifying
+    @Query(value = "insert into quiz (quiz_name,quiz_id) VALUES (:nameOfQuiz,:idOfQuiz)", nativeQuery = true)
+    @Transactional
+    void addByNativeSql(@Param("nameOfQuiz") String nameOfQuiz, @Param("idOfQuiz") Long idOfQuiz);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM quiz u WHERE u.quiz_name = :nameOfQuiz ",nativeQuery = true)
+    void deleteByNativeSql(@Param("nameOfQuiz") String nameOfQuiz);
+
+    @Modifying
+    @Query(value = "update quiz u set u.quiz_name = :nameOfQuiz, u.quiz_id = :IdOfQuiz where u.difficulty = :dif",nativeQuery = true)
+    @Transactional
+    void updateQuizInfoByNativeSql(@Param( "nameOfQuiz")String nameOfQuiz, @Param( "IdOfQuiz")Long IdOfQuiz,@Param( "dif") Integer dif);
+
+
+
 
 
     Quiz getById(Long id);
@@ -87,20 +105,6 @@ public interface QuizRepository extends JpaRepository<Quiz,Long> {
             value = "SELECT * FROM quiz u WHERE LOWER (u.name) LIKE LOWER (%:quizName% )",
             nativeQuery = true)
     List<Quiz> findSpecificNameQuizzes(@Param("quizName") String quizName);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
